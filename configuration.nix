@@ -71,15 +71,11 @@
     description = "Hamish McLean";
     extraGroups = [ "networkmanager" "wheel" ];
     openssh.authorizedKeys.keys = [
-      # paste your laptop’s public key here
-      "ssh-ed25519 AAAAC3Nz... hamish@laptop"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPHs/4PGrhOaTdX6E5FqZittbZhzbSbq+1h+FZ7+u6aA hamish@nixos"
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    git wget fish foot vim neovim firefox fuzzel wl-clipboard
-    fastfetch starship eza
-  ];
+  environment.systemPackages = with pkgs; [git wget gcc curl];
 
   programs.ssh.startAgent = true;
   programs.fish.enable = true;

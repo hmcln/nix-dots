@@ -1,11 +1,12 @@
 {
-  description = "Hamish NixOS (flake bootstrap)";
+  description = "Hamish NixOS";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
+
 
   outputs = { self, nixpkgs, home-manager, ... }:
   let
@@ -19,22 +20,56 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
+          home-manager.backupFileExtension = "backup";
           home-manager.users.hamish = { pkgs, ... }: {
             home.stateVersion = "25.05";
             home.packages = with pkgs; [
-              fastfetch eza fuzzel foot wl-clipboard neovim git starship fish
+              # Essentials
+              fish
+              foot
+              neovim
+              fuzzel
+              wl-clipboard
+
+              # QoL
+              fastfetch
+              starship
+              eza
+              lazygit
+              ripgrep
+              tree-sitter
+              fzf
+              fd
+
+              # Node.js
+              nodejs_20
+              yarn
+              pnpm
             ];
             programs.fish.enable = true;
             programs.starship.enable = true;
             programs.git = {
               enable = true;
-              userName = "Hamish McLean";
-              userEmail = "you@example.com";
+              settings.user = {
+                name = "Hamish McLean";
+                email = "hamish@condor.net.au";
+              };
             };
-            programs.ssh.enable = true;
+
+            programs.ssh = {
+                enable = true;
+                enableDefaultConfig = false;
+                addKeysToAgent = "yes";
+                matchBlocks."*" = {
+                  forwardAgent = true;
+                  identityFile = "~/.ssh/id_ed25519";
+                };
+              };
           };
         }
-        { users.users.hamish.shell = nixpkgs.legacyPackages.${system}.fish; }
+        ({ config, pkgs, ... }: {
+          users.users.hamish.shell = pkgs.fish;
+        })
       ];
     };
   };
