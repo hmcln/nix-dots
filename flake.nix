@@ -177,9 +177,9 @@
             programs.ssh = {
                 enable = true;
                 enableDefaultConfig = false;
-                addKeysToAgent = "yes";
                 matchBlocks = {
                   "github.com" = {
+                    addKeysToAgent = "yes";
                     forwardAgent = true;
                     identityFile = "~/.ssh/id_ed25519";
                   };
