@@ -27,6 +27,7 @@
               # Essentials
               fish
               foot
+              firefox
               neovim
               fuzzel
               wl-clipboard
@@ -45,6 +46,15 @@
               nodejs_20
               yarn
               pnpm
+
+              # Python
+              python3
+              python3Packages.virtualenv
+              python3Packages.pip
+
+              # Lua (mainly for Neovim)
+              lua
+              luajitPackages.luarocks
             ];
             programs.fish.enable = true;
             programs.starship.enable = true;

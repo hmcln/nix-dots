@@ -75,7 +75,7 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [git wget gcc curl];
+  environment.systemPackages = with pkgs; [git wget gcc curl gnumake];
 
   programs.ssh.startAgent = true;
   programs.fish.enable = true;
