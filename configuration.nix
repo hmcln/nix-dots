@@ -55,8 +55,20 @@
 
   hardware.graphics = { enable = true; enable32Bit = true; };
 
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-hyprland
+    ];
+
+    config = {
+      common = {
+        default = [ "hyprland" "gtk" ];
+        "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
+      };
+    };
+  };
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
@@ -75,7 +87,9 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [git wget gcc curl gnumake];
+  environment.systemPackages = with pkgs; [git wget gcc curl gnumake glib dconf adwaita-icon-theme];
+
+  programs.dconf.enable = true;
 
   programs.ssh.startAgent = true;
   programs.fish.enable = true;
