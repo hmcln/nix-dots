@@ -69,7 +69,6 @@
               lazygit
               btop
               darkman
-              gsettings-desktop-schemas  
 
               # Node.js
               nodejs_20
@@ -105,9 +104,8 @@
 
             programs.starship.enable = true;
 
-            home.file.".config/darkman/config".text = ''
-              [darkman]
-              usegeoclue=false
+            home.file.".config/darkman/config.yaml".text = ''
+              usegeoclue: false
             '';
 
             gtk = {
@@ -123,7 +121,7 @@
               };
 
             # Hooks: executed by darkman when switching
-            home.file.".config/darkman/on-dark" = {
+            home.file.".local/share/darkman/dark-mode.d/10-gtk-dark" = {
               text = ''
                 #!/usr/bin/env bash
                 set -euo pipefail
@@ -138,7 +136,7 @@
               executable = true;
             };
 
-            home.file.".config/darkman/on-light" = {
+            home.file.".local/share/darkman/light-mode.d/10-gtk-light" = {
               text = ''
                 #!/usr/bin/env bash
                 set -euo pipefail
@@ -149,6 +147,23 @@
                 command -v hyprctl >/dev/null && hyprctl reload || true
               '';
               executable = true;
+            };
+
+            systemd.user.services.darkman = {
+              Unit = {
+                Description = "Darkman dark/light switcher";
+                After = [ "graphical-session-pre.target" ];
+                PartOf = [ "graphical-session.target" ];
+              };
+
+              Service = {
+                Type = "dbus";
+                BusName = "nl.whynothugo.darkman";
+                ExecStart = "${pkgs.darkman}/bin/darkman run";
+                Restart = "on-failure";
+              };
+
+              Install = { WantedBy = [ "graphical-session.target" ]; };
             };
 
             programs.git = {
@@ -167,7 +182,7 @@
                   "github.com" = {
                     forwardAgent = true;
                     identityFile = "~/.ssh/id_ed25519";
-                  }
+                  };
                 };
               };
           };

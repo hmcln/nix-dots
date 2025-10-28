@@ -65,7 +65,7 @@
     config = {
       common = {
         default = [ "hyprland" "gtk" ];
-        "org.freedesktop.impl.portal.Settings" = [ "gtk" ];
+        "org.freedesktop.impl.portal.Settings" = [ "darkman" "gtk" ];
       };
     };
   };
@@ -73,6 +73,8 @@
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     MOZ_ENABLE_WAYLAND = "1";
+    GSETTINGS_SCHEMA_DIR =
+      "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas";
   };
 
   users.groups.hamish = {};
@@ -87,7 +89,17 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [git wget gcc curl gnumake glib dconf adwaita-icon-theme];
+  environment.systemPackages = with pkgs; [
+    git
+    wget
+    gcc
+    curl
+    gnumake
+    glib
+    gsettings-desktop-schemas
+    dconf
+    adwaita-icon-theme
+  ];
 
   programs.dconf.enable = true;
 
