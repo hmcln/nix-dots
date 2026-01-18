@@ -6,6 +6,8 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
+
     caelestia-shell = {
       url = "github:hmcln/shell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,6 +26,7 @@
       self,
       nixpkgs,
       home-manager,
+      nixos-wsl,
       caelestia-shell,
       caelestia-cli,
       ...
@@ -571,6 +574,40 @@
               users.users.hamish.shell = pkgs.fish;
             }
           )
+        ];
+      };
+
+      nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./configuration.nix
+          ./hosts/wsl
+          nixos-wsl.nixosModules.wsl
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
+            home-manager.users.hamish =
+              { pkgs, ... }:
+              {
+                imports = [ ./modules ];
+
+                home.stateVersion = "25.05";
+
+                # Enable CLI-focused modules on WSL
+                modules.programs.neovim.enable = true;
+                modules.programs.btop.enable = true;
+                modules.programs.fish.enable = true;
+                modules.programs.starship.enable = true;
+                modules.programs.lazygit.enable = true;
+
+                # Disable desktop-specific modules on WSL
+                modules.desktop.hyprland.enable = false;
+                modules.programs.caelestia.enable = false;
+                modules.desktop.style.cursor.enable = false;
+              };
+          }
         ];
       };
     };
