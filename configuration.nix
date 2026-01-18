@@ -1,12 +1,26 @@
-
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "1password-gui" "1password" "1password-cli"
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
   ];
+
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "1password-gui"
+      "1password"
+      "1password-cli"
+      "slack"
+      "todoist-electron"
+      "spotify"
+    ];
 
   programs._1password.enable = true;
   programs._1password-gui = {
@@ -14,13 +28,12 @@
     polkitPolicyOwners = [ "hamish" ];
   };
 
-  imports = [ ./hardware-configuration.nix ];
+  # Note: hardware-configuration.nix and hostname are imported from hosts/<machine>/default.nix
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "nixos";
   networking.networkmanager.enable = true;
 
   time.timeZone = "Australia/Melbourne";
@@ -51,9 +64,19 @@
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
   services.displayManager.defaultSession = "hyprland";
+  services.gnome.gnome-keyring.enable = true;
   programs.hyprland.enable = true;
 
-  hardware.graphics = { enable = true; enable32Bit = true; };
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+
+  # Power management - enables power profiles daemon for quickshell
+  services.power-profiles-daemon.enable = true;
 
   xdg.portal = {
     enable = true;
@@ -64,8 +87,14 @@
 
     config = {
       common = {
-        default = [ "hyprland" "gtk" ];
-        "org.freedesktop.impl.portal.Settings" = [ "darkman" "gtk" ];
+        default = [
+          "hyprland"
+          "gtk"
+        ];
+        "org.freedesktop.impl.portal.Settings" = [
+          "darkman"
+          "gtk"
+        ];
       };
     };
   };
@@ -73,19 +102,22 @@
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     MOZ_ENABLE_WAYLAND = "1";
-    GSETTINGS_SCHEMA_DIR =
-      "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas";
+    GSETTINGS_SCHEMA_DIR = "${pkgs.gsettings-desktop-schemas}/share/gsettings-schemas/${pkgs.gsettings-desktop-schemas.name}/glib-2.0/schemas";
   };
 
-  users.groups.hamish = {};
+  users.groups.hamish = { };
 
   users.users.hamish = {
     isNormalUser = true;
     group = "hamish";
     description = "Hamish McLean";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "docker"
+    ];
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPHs/4PGrhOaTdX6E5FqZittbZhzbSbq+1h+FZ7+u6aA hamish@nixos"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICUIgdznO0AC6sZE3EThR0CWvq2m+avxtWc7U2menxTU hamish@nixos"
     ];
   };
 
@@ -93,17 +125,24 @@
     git
     wget
     gcc
+    unzip
     curl
+    zlib
     gnumake
     glib
     gsettings-desktop-schemas
     dconf
     adwaita-icon-theme
+    hicolor-icon-theme
+    gnome-themes-extra
   ];
+
+  virtualisation.docker = {
+    enable = true;
+  };
 
   programs.dconf.enable = true;
 
-  programs.ssh.startAgent = true;
   programs.fish.enable = true;
 
   fonts.packages = with pkgs; [
