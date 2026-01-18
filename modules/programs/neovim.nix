@@ -57,9 +57,6 @@ mkIf cfg.enable
     ];
   };
 
-  # Point to the dotfiles nvim config directory
-  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "/home/hamish/dotfiles/nvim";
-
   # For conditional nix-specific config in nvim config
   # These are set via fish shellInit since fish is the managed shell
   programs.fish.shellInit = mkIf config.modules.programs.fish.enable ''
