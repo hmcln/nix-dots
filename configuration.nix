@@ -51,6 +51,9 @@
     LC_TIME = "en_AU.UTF-8";
   };
 
+  services.power-profiles-daemon.enable = true;
+  services.upower.enable = true;
+
   services.xserver.xkb.layout = "au";
 
   services.pipewire = {
