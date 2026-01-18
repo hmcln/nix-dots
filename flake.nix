@@ -165,6 +165,9 @@
               python3Packages.virtualenv
               python3Packages.pip
               uv
+              basedpyright
+              ruff
+              black # Python formatter
 
               # Lua (mainly for Neovim)
               lua
@@ -173,11 +176,8 @@
               # LSP Servers (for Neovim)
               lua-language-server
               nil
-              pyright
-              ruff
 
               # Formatters (for Neovim)
-              black # Python formatter
               stylua # Lua formatter
               shfmt # Shell script formatter
             ];
@@ -422,6 +422,9 @@
                   python3Packages.virtualenv
                   python3Packages.pip
                   uv
+                  basedpyright
+                  ruff
+                  black # Python formatter
 
                   # Lua (mainly for Neovim)
                   lua
@@ -430,11 +433,8 @@
                   # LSP Servers (for Neovim)
                   lua-language-server
                   nil
-                  pyright
-                  ruff
 
                   # Formatters (for Neovim)
-                  black # Python formatter
                   stylua # Lua formatter
                   shfmt # Shell script formatter
                 ];

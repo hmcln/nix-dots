@@ -78,9 +78,6 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
-  # Power management - enables power profiles daemon for quickshell
-  services.power-profiles-daemon.enable = true;
-
   xdg.portal = {
     enable = true;
     extraPortals = [
