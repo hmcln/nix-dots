@@ -143,6 +143,8 @@
 
   programs.dconf.enable = true;
 
+  programs.nix-ld.enable = true;
+
   programs.fish.enable = true;
 
   fonts.packages = with pkgs; [
