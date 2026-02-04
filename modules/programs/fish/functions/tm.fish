@@ -1,8 +1,9 @@
 function tm --description "Enhanced tmux session manager"
+    set -l change
     if set -q TMUX
-        set -l change switch-client
+        set change switch-client
     else
-        set -l change attach-session
+        set change attach-session
     end
 
     if not command -q tmux
