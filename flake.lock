@@ -10,11 +10,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1768270106,
-        "narHash": "sha256-mGX+x1fgC++e5WhlD3Y2xs6VusMu5z6WHac8b+FmZpk=",
+        "lastModified": 1770163554,
+        "narHash": "sha256-dGTWsOBS6RVIftT8cDWlK4/2GDMEl9oaoQSOxza1c+s=",
         "owner": "hmcln",
         "repo": "cli",
-        "rev": "7900d054595ce941e9854a66649d25bee15b8134",
+        "rev": "370766ea489054bf12bdaffaa487e268bd88b688",
         "type": "github"
       },
       "original": {

@@ -4,11 +4,12 @@ with lib;
 
 {
   imports = [
-    ./btop/btop.nix
-    ./foot/foot.nix
-    ./lazygit/lazygit.nix
-    ./fish/fish.nix
-    ./starship/starship.nix
+    ./btop
+    ./foot
+    ./lazygit
+    ./fish
+    ./starship
+    ./tmux
     ./caelestia.nix
     ./caelestia-sync.nix
     ./neovim.nix
@@ -41,6 +42,10 @@ with lib;
 
     starship = {
       enable = mkEnableOption "Starship prompt";
+    };
+
+    tmux = {
+      enable = mkEnableOption "tmux terminal multiplexer";
     };
   };
 
