@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 with lib;
 
@@ -20,6 +25,7 @@ in
           pad = "25x25";
           bold-text-in-bright = false;
           gamma-correct-blending = false;
+          term = "xterm-256color";
         };
 
         scrollback = {

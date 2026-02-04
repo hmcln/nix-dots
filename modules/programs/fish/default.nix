@@ -25,6 +25,9 @@ in
         if test -f ~/.local/state/caelestia/sequences.txt
           cat ~/.local/state/caelestia/sequences.txt
         end
+
+        # Auto-launch tmux home session
+        tmux_auto_home
       '';
     };
 
