@@ -31,16 +31,56 @@
     ];
 
     workspaces = [
-      { id = 1; monitor = 0; persistent = true; }
-      { id = 2; monitor = 0; persistent = true; }
-      { id = 3; monitor = 0; persistent = true; }
-      { id = 4; monitor = 0; persistent = true; }
-      { id = 5; monitor = 0; persistent = true; }
-      { id = 6; monitor = 1; persistent = true; }
-      { id = 7; monitor = 1; persistent = true; }
-      { id = 8; monitor = 1; persistent = true; }
-      { id = 9; monitor = 1; persistent = true; }
-      { id = 10; monitor = 1; persistent = true; }
+      {
+        id = 1;
+        monitor = 0;
+        persistent = true;
+      }
+      {
+        id = 2;
+        monitor = 0;
+        persistent = true;
+      }
+      {
+        id = 3;
+        monitor = 0;
+        persistent = true;
+      }
+      {
+        id = 4;
+        monitor = 0;
+        persistent = true;
+      }
+      {
+        id = 5;
+        monitor = 0;
+        persistent = true;
+      }
+      {
+        id = 6;
+        monitor = 1;
+        persistent = true;
+      }
+      {
+        id = 7;
+        monitor = 1;
+        persistent = true;
+      }
+      {
+        id = 8;
+        monitor = 1;
+        persistent = true;
+      }
+      {
+        id = 9;
+        monitor = 1;
+        persistent = true;
+      }
+      {
+        id = 10;
+        monitor = 1;
+        persistent = true;
+      }
     ];
   };
 
@@ -53,6 +93,7 @@
     };
     theme = {
       enableTerm = true;
+      termTransparency = true;
       enableHypr = true;
       enableDiscord = true;
       enableFuzzel = true;
@@ -70,7 +111,7 @@
     fuzzel
     wl-clipboard
     pavucontrol
-    thunderbird
+    lazydocker
 
     slack
     todoist-electron

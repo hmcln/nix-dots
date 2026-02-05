@@ -59,6 +59,7 @@ let
     theme = {
       # Enable user-writable configs (these work fine on NixOS)
       enableTerm = cfg.theme.enableTerm;
+      termTransparency = cfg.theme.termTransparency;
       enableHypr = cfg.theme.enableHypr;
       enableDiscord = cfg.theme.enableDiscord;
       enableSpicetify = cfg.theme.enableSpicetify;
@@ -104,6 +105,12 @@ in
         type = types.bool;
         default = true;
         description = "Enable terminal theming (ANSI sequences)";
+      };
+
+      termTransparency = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Skip setting terminal background color to allow transparency";
       };
 
       enableHypr = mkOption {

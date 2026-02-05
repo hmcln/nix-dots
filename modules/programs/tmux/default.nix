@@ -12,9 +12,10 @@ let
 in
 {
   config = mkIf cfg.enable {
-    programs.tmux = {
-      enable = true;
-      extraConfig = builtins.readFile ./tmux.conf;
-    };
+    # Write tmux.conf directly to avoid Home Manager prepending defaults
+    xdg.configFile."tmux/tmux.conf".source = ./tmux.conf;
+
+    # Still need tmux package installed
+    home.packages = [ pkgs.tmux ];
   };
 }
