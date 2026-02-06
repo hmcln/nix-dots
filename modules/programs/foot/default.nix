@@ -39,6 +39,7 @@ in
 
         colors = {
           alpha = 0.78;
+          background = "24283b"; # TokyoNight - hardcoded until Caelestia CLI improvements
         };
 
         key-bindings = {
