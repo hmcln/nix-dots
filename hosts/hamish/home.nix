@@ -27,7 +27,7 @@
   modules.desktop.hyprland = {
     monitors = [
       "HDMI-A-1,3840x2160,-2560x-540,1.5"
-      "DP-1,2560x1440,-2560x0,1"
+      "DP-1,3840x2160,-3840x0,1.25"
     ];
 
     workspaces = [
@@ -112,6 +112,7 @@
     wl-clipboard
     pavucontrol
     lazydocker
+    iamb
 
     slack
     todoist-electron

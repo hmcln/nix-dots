@@ -35,14 +35,16 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
-        config.allowUnfreePredicate = pkg: builtins.elem (nixpkgs.lib.getName pkg) [
-          "1password-gui"
-          "1password"
-          "1password-cli"
-          "slack"
-          "todoist-electron"
-          "spotify"
-        ];
+        config.allowUnfreePredicate =
+          pkg:
+          builtins.elem (nixpkgs.lib.getName pkg) [
+            "1password-gui"
+            "1password"
+            "1password-cli"
+            "slack"
+            "todoist-electron"
+            "spotify"
+          ];
       };
 
       # Extra arguments passed to all Home Manager modules
