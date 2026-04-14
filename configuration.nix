@@ -151,6 +151,8 @@
     dejavu_fonts
     nerd-fonts.droid-sans-mono
     nerd-fonts.jetbrains-mono
+    noto-fonts-cjk-sans
+    noto-fonts-cjk-serif
   ];
 
   services.openssh = {
